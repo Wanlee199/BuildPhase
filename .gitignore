@@ -1,0 +1,79 @@
+# =====================================================================
+# GitIgnore File for GreenSM HITL Active Learning Lab (M50)
+# Ignore everything by default except src/ and essential documentation
+# =====================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Large Archives & Binaries (Datasets & Archives)
+*.zip
+*.rar
+*.tar
+*.gz
+*.7z
+*.xlsx
+*.xls
+*.pdf
+
+# Model Weight Checkpoints & Output Runs
+runs/
+colab_outputs/
+outputs/
+*.pt
+*.onnx
+*.engine
+
+# Datasets & Temp Files
+dataset_metadata.json
+active_selection_results.json
+dataset_v1/
+cvat_package/
+data/
+raw_data/
+*.jpg
+*.png
+*.jpeg
+
+# Ignore .agents local agent directory if any
+.agents/
+
+# Explicitly allow source directory and markdown documentation
+!src/
+!src/**
+!README.md
+!PIPELINE_TOI_UU_GREENSM_HITL_ACTIVE_LEARNING.md
+!BAO_CAO_TONG_KET_SELECT_MODEL.md
+!mentorTalk1.md
