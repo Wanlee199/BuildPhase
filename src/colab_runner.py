@@ -70,7 +70,7 @@ def run_full_colab_pipeline(data_dir: str, output_dir: str, top_k: int = 200, ep
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Master Pipeline Execution Script for Google Colab (V4.0)")
-    parser.add_argument("--data-dir", type=str, required=True, help="Directory containing raw images/videos")
+    parser.add_argument("--data-dir", type=str, default="images", help="Directory containing raw input images/video frames (default: 'images')")
     parser.add_argument("--output-dir", type=str, default="colab_outputs", help="Directory for all outputs")
     parser.add_argument("--top-k", type=int, default=200, help="Top-K active candidates to select")
     parser.add_argument("--epochs", type=int, default=50, help="Training epochs (default: 50)")

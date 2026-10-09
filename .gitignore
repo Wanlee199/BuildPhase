@@ -63,6 +63,8 @@ dataset_v1/
 cvat_package/
 data/
 raw_data/
+images/*
+!images/.gitkeep
 *.jpg
 *.png
 *.jpeg
@@ -73,7 +75,11 @@ raw_data/
 # Explicitly allow source directory and markdown documentation
 !src/
 !src/**
+!docs/
+!docs/**
 !README.md
+!QnA.md
 !PIPELINE_TOI_UU_GREENSM_HITL_ACTIVE_LEARNING.md
+!PIPELINE_TOI_UU_GREENSM_HITL_ACTIVE_LEARNING_V4.md
 !BAO_CAO_TONG_KET_SELECT_MODEL.md
 !mentorTalk1.md

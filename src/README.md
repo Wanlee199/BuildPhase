@@ -30,8 +30,8 @@ drive.mount('/content/drive')
 ### Cell 2: Chạy Master Pipeline (Toàn bộ 6 Bước Tự Động V4.0)
 ```python
 !python src/colab_runner.py \
-    --data-dir /content/drive/MyDrive/GreenSM_Data/raw_images \
-    --output-dir /content/drive/MyDrive/GreenSM_Outputs \
+    --data-dir images \
+    --output-dir outputs \
     --top-k 200 \
     --epochs 50
 ```
@@ -43,7 +43,7 @@ drive.mount('/content/drive')
 ### Bước 1: Lọc trùng Dual-Stream FastDedup & Profiling
 ```bash
 !python src/data_profiling.py \
-    --data-dir /content/drive/MyDrive/GreenSM_Data/raw_images \
+    --data-dir images \
     --output-json outputs/dataset_metadata.json \
     --hash-thresh 5
 ```
