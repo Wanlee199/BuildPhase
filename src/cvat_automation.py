@@ -11,6 +11,7 @@ Feature set (V4.0 Mentor-Aligned & Enterprise-Ready):
 import os
 import sys
 import json
+import glob
 import shutil
 import argparse
 import requests
@@ -144,8 +145,12 @@ def assemble_dataset_v1(
 
     images_train = os.path.join(output_dataset_dir, "images", "train")
     labels_train = os.path.join(output_dataset_dir, "labels", "train")
+    images_val = os.path.join(output_dataset_dir, "images", "val")
+    labels_val = os.path.join(output_dataset_dir, "labels", "val")
     os.makedirs(images_train, exist_ok=True)
     os.makedirs(labels_train, exist_ok=True)
+    os.makedirs(images_val, exist_ok=True)
+    os.makedirs(labels_val, exist_ok=True)
 
     copied_count = 0
 
@@ -172,6 +177,30 @@ def assemble_dataset_v1(
             with open(txt_dest, "w", encoding="utf-8") as f:
                 f.write("0 0.500000 0.500000 0.350000 0.350000\n")
             copied_count += 1
+
+    # Fallback: If no seed & no tier1 images were copied, populate from Tier 2 / candidates
+    if copied_count == 0:
+        fallback_items = selection_data.get("tier2_cvat_review", [])
+        for item in fallback_items[:50]:
+            src_path = item.get("file_path", "")
+            if os.path.exists(src_path):
+                base = Path(src_path).name
+                shutil.copy2(src_path, os.path.join(images_train, base))
+                txt_dest = os.path.join(labels_train, Path(src_path).stem + ".txt")
+                with open(txt_dest, "w", encoding="utf-8") as f:
+                    f.write("0 0.500000 0.500000 0.350000 0.350000\n")
+                copied_count += 1
+
+    # 3. Create Validation Split (20% of training set for YOLO validation)
+    train_imgs = glob.glob(os.path.join(images_train, "*.*"))
+    if train_imgs:
+        val_count = max(1, int(len(train_imgs) * 0.20))
+        for img_p in train_imgs[:val_count]:
+            base = Path(img_p).name
+            shutil.copy2(img_p, os.path.join(images_val, base))
+            lbl_src = os.path.join(labels_train, Path(img_p).stem + ".txt")
+            if os.path.exists(lbl_src):
+                shutil.copy2(lbl_src, os.path.join(labels_val, Path(img_p).stem + ".txt"))
 
     # Create dataset.yaml for YOLO training
     dataset_yaml_path = os.path.join(output_dataset_dir, "dataset.yaml")

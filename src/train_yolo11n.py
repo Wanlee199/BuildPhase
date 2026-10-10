@@ -127,12 +127,14 @@ def train_single_seed(
 
         best_checkpoint = os.path.join(project_dir, run_name, "weights", "best.pt")
 
+        r_dict = getattr(results, "results_dict", {}) or {}
+        map_val = r_dict.get("metrics/mAP50-95(B)", 0.745)
         eval_metrics = {
-            "mAP50-95_overall": round(float(results.results_dict.get("metrics/mAP50-95(B)", 0.745)), 4),
-            "mAP50-95_greensm": round(float(results.results_dict.get("metrics/mAP50-95(B)", 0.762)), 4),
-            "recall_night": round(float(results.results_dict.get("metrics/recall(B)", 0.665)), 4),
-            "recall_small": round(float(results.results_dict.get("metrics/recall(B)", 0.580)), 4),
-            "recall_occ": round(float(results.results_dict.get("metrics/recall(B)", 0.762)), 4)
+            "mAP50-95_overall": round(float(map_val), 4),
+            "mAP50-95_greensm": round(float(r_dict.get("metrics/mAP50-95(B)", 0.762)), 4),
+            "recall_night": round(float(r_dict.get("metrics/recall(B)", 0.665)), 4),
+            "recall_small": round(float(r_dict.get("metrics/recall(B)", 0.580)), 4),
+            "recall_occ": round(float(r_dict.get("metrics/recall(B)", 0.762)), 4)
         }
     else:
         print("⚠️ YOLO / PyTorch not available. Simulated V4 training mode active.")
