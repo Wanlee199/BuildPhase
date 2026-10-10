@@ -83,3 +83,4 @@ images/*
 !PIPELINE_TOI_UU_GREENSM_HITL_ACTIVE_LEARNING_V4.md
 !BAO_CAO_TONG_KET_SELECT_MODEL.md
 !mentorTalk1.md
+!colab_greensm_active_learning.ipynb

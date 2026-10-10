@@ -1,10 +1,14 @@
-# GREENSM HUMAN-IN-THE-LOOP ACTIVE LEARNING LAB (M50)
+# GREENSM HUMAN-IN-THE-LOOP ACTIVE LEARNING LAB (M50 - V4.0)
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Model YOLO11n](https://img.shields.io/badge/Model-YOLO11n-green.svg)](https://docs.ultralytics.com/)
-[![Active Learning V3.0](https://img.shields.io/badge/Pipeline-V3.0_Final-orange.svg)](PIPELINE_TOI_UU_GREENSM_HITL_ACTIVE_LEARNING.md)
+[![Master Documentation](https://img.shields.io/badge/Docs-V4.0_Master_Doc-orange.svg)](docs/PROJECT_MASTER_DOCUMENTATION.md)
+[![Colab Notebook](https://img.shields.io/badge/Colab-Ready_Notebook-yellow.svg)](colab_greensm_active_learning.ipynb)
 
-Dự án nghiên cứu và phát triển hệ thống **End-to-End Human-in-the-Loop Active Learning** cho bài toán **Nhận diện xe điện GreenSM (Single-Class GreenSM Vehicle Detection)** trong dòng giao thông hỗn hợp tại Việt Nam.
+Dự án nghiên cứu và phát triển hệ thống **End-to-End Human-in-the-Loop Active Learning** cho bài toán **Nhận diện xe điện GreenSM trong dòng giao thông hỗn hợp tại Việt Nam (5-Class Taxonomy: `greensm, car, motorcycle, bus, truck`)**.
+
+> 📖 **Tài liệu Chi tiết Toàn diện**: Xem ngay tại [docs/PROJECT_MASTER_DOCUMENTATION.md](docs/PROJECT_MASTER_DOCUMENTATION.md)  
+> 🚀 **Notebook Chạy Colab**: Mở trực tiếp [colab_greensm_active_learning.ipynb](colab_greensm_active_learning.ipynb)
 
 ---
 
@@ -102,20 +106,25 @@ TIER 1: AUTO-ACCEPT                                   │
 
 ```text
 Buildphase/
+├── docs/                                 # Tài liệu Kỹ thuật Chi tiết
+│   ├── PROJECT_MASTER_DOCUMENTATION.md   # ⭐ Tài liệu Tổng quan Toàn diện Toàn bộ Dự án V4.0 (Master Doc)
+│   ├── PIPELINE_TOI_UU_GREENSM_HITL_ACTIVE_LEARNING_V4.md # Thiết kế Chi tiết Pipeline V4.0
+│   ├── BAO_CAO_TONG_KET_SELECT_MODEL.md  # Báo cáo chọn mô hình YOLO11n & Đối đầu RT-DETR
+│   └── mentorTalk1.md                    # Tổng hợp góp ý chuyên sâu từ Mentor
 ├── src/                                  # Toàn bộ Mã nguồn Python Tự động hóa Pipeline
-│   ├── __init__.py                       # Package Init
-│   ├── data_profiling.py                 # Lọc trùng Intra-Video & Metadata Profiling
-│   ├── active_selection.py               # Active Mining 1-Class & Phân tầng 2-Tier HITL
-│   ├── cvat_automation.py                # Đấu nối Pre-labels CVAT & Assembly Dataset V1
-│   ├── train_yolo11n.py                  # Wrapper Training YOLO11n & Multi-Seed Run
-│   ├── evaluate_benchmark.py             # Đánh giá Đa lát cắt & Xuất báo cáo A/B Test
-│   ├── colab_runner.py                   # Master Pipeline Execution Script cho Colab
-│   └── README.md                         # Hướng dẫn chi tiết mã Cell chạy trên Colab
-├── PIPELINE_TOI_UU_GREENSM_HITL_ACTIVE_LEARNING.md  # Tài liệu Thiết kế Pipeline V3.0 Final
-├── BAO_CAO_TONG_KET_SELECT_MODEL.md      # Báo cáo chọn mô hình YOLO11n
-├── mentorTalk1.md                        # Bảng tổng hợp góp ý Mentor
-├── .gitignore                            # Cấu hình GitIgnore chỉ đẩy phần SRC & Markdown
-└── README.md                             # Tài liệu tổng quan dự án (File này)
+│   ├── data_profiling.py                 # Bước 1: Lọc trùng FastDedup & Metadata Profiling 5 Lát cắt
+│   ├── active_selection.py               # Bước 2: Active Mining 5 Classes & Lọc Đa dạng Core-Set
+│   ├── cvat_automation.py                # Bước 3: Đóng gói Pre-labels CVAT & Assembly Dataset V1
+│   ├── train_yolo11n.py                  # Bước 4: Wrapper Training YOLO11n & Multi-Seed Run
+│   ├── evaluate_benchmark.py             # Bước 5: Đánh giá Đa lát cắt & Xuất Báo cáo 3 Trụ Cột ROI
+│   ├── export_quantize.py                # Bước 6: Xuất ONNX & Lượng tử hóa OpenVINO INT8 (Edge CPU)
+│   ├── colab_runner.py                   # Master Pipeline Runner chạy 1 lệnh cho Colab
+│   └── README.md                         # Hướng dẫn chi tiết thư mục src
+├── colab_greensm_active_learning.ipynb   # 🚀 Google Colab Interactive Notebook (Sẵn sàng chạy)
+├── QnA.md                                # Bộ hỏi đáp cốt lõi & giải thích các thắc mắc bản chất
+├── vovong.zip                            # Kho dữ liệu mẫu (400 ảnh + nhãn)
+├── .gitignore                            # Cấu hình GitIgnore
+└── README.md                             # Tổng quan dự án (File này)
 ```
 
 ---
